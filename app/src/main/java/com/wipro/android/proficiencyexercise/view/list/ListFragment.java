@@ -53,7 +53,6 @@ public class ListFragment extends BaseFragment {
         return view;
     }
 
-
     private void setLiveDataObserval() {
 
         listFragmentViewModel.apiResponse.observe(this, var -> {
@@ -87,7 +86,7 @@ public class ListFragment extends BaseFragment {
         recyclerView.setAdapter(mAdapter);
     }
 
-    private void navigateToDetail(){
+    private void navigateToDetail() {
 
     }
 }

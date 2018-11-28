@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public TextView titleTv;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

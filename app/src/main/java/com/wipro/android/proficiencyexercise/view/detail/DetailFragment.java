@@ -56,6 +56,9 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void setViewData() {
+        if (rows.getTitle() != null || !rows.getTitle().isEmpty()) {
+            getBaseActivity().getSupportActionBar().setTitle(rows.getTitle());
+        }
         desc.setText(rows.getDescription());
         Glide.with(getBaseActivity())
                 .load(rows.getImageHref())

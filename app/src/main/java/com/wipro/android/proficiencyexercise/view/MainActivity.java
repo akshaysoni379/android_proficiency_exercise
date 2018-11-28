@@ -1,11 +1,11 @@
 package com.wipro.android.proficiencyexercise.view;
 
 import android.os.Bundle;
-import android.widget.Toolbar;
+import android.support.v7.app.ActionBar;
 
-import com.wipro.android.proficiencyexercise.view.base.BaseActivity;
 import com.wipro.android.proficiencyexercise.AppUtil.NavigationUtils;
 import com.wipro.android.proficiencyexercise.R;
+import com.wipro.android.proficiencyexercise.view.base.BaseActivity;
 import com.wipro.android.proficiencyexercise.view.list.ListFragment;
 
 public class MainActivity extends BaseActivity {
@@ -16,8 +16,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
-        setActionBar(tb);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         NavigationUtils.addFragment(getSupportFragmentManager(),
                 new ListFragment(),

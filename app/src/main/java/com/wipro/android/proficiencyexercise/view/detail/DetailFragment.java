@@ -28,7 +28,6 @@ import java.util.ArrayList;
 public class DetailFragment extends BaseFragment {
 
     private final String TAG = DetailFragment.class.getSimpleName();
-    ListFragmentViewModel listFragmentViewModel;
     private TextView desc;
     private ImageView image;
 
@@ -50,11 +49,8 @@ public class DetailFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.detail_fragment, container, false);
         desc = (TextView) view.findViewById(R.id.desc);
         image = (ImageView) view.findViewById(R.id.image);
-        listFragmentViewModel = ViewModelProviders.of(this).get(ListFragmentViewModel.class);
-        listFragmentViewModel.getDataFromApi();
         return view;
     }
-
 
     private void setViewData(ArrayList<Rows> rowsList) {
 

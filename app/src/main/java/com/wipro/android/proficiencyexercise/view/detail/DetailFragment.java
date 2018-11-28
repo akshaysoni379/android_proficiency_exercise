@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.model.Rows;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
@@ -66,7 +65,6 @@ public class DetailFragment extends BaseFragment {
             if (rows.getImageHref() != null && !rows.getImageHref().isEmpty()) {
                 Glide.with(getBaseActivity())
                         .load(rows.getImageHref())
-                        .apply(new RequestOptions().placeholder(R.drawable.loading))
                         .into(image);
             }
         }

@@ -2,23 +2,23 @@ package com.wipro.android.proficiencyexercise.view.list;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.wipro.android.proficiencyexercise.AppUtil.Utils;
-import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 import com.wipro.android.proficiencyexercise.AppUtil.LogUtil;
+import com.wipro.android.proficiencyexercise.AppUtil.Utils;
 import com.wipro.android.proficiencyexercise.R;
+import com.wipro.android.proficiencyexercise.databinding.ListFragmentBinding;
 import com.wipro.android.proficiencyexercise.model.CanadaList;
 import com.wipro.android.proficiencyexercise.model.Rows;
+import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
 import java.util.ArrayList;
 
@@ -28,10 +28,8 @@ import java.util.ArrayList;
 public class ListFragment extends BaseFragment {
 
     private final String TAG = ListFragment.class.getSimpleName();
-    ListFragmentViewModel listFragmentViewModel;
-    private RecyclerView recyclerView;
-    private TextView networkErrorTv;
-    private SwipeRefreshLayout swipeContainer;
+    private ListFragmentViewModel listFragmentViewModel;
+    private ListFragmentBinding binding;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -42,31 +40,29 @@ public class ListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.list_fragment, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        networkErrorTv = (TextView) view.findViewById(R.id.network_error_tv);
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        binding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false);
         listFragmentViewModel = ViewModelProviders.of(this).get(ListFragmentViewModel.class);
+        binding.setLifecycleOwner(this);
 
-        swipeContainer.setOnRefreshListener(() -> apiCall());
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+        binding.swipeContainer.setOnRefreshListener(() -> apiCall());
+        binding.swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
         apiCall();
 
-        return view;
+        return binding.getRoot();
     }
 
     private void apiCall() {
         if (Utils.checkNetwork(getBaseActivity())) {
             listFragmentViewModel.apiCall();
-            recyclerView.setVisibility(View.VISIBLE);
-            networkErrorTv.setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
+            binding.networkErrorTv.setVisibility(View.GONE);
         } else {
-            recyclerView.setVisibility(View.GONE);
-            networkErrorTv.setVisibility(View.VISIBLE);
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.networkErrorTv.setVisibility(View.VISIBLE);
             hideSwipeIndicator();
         }
     }
@@ -102,16 +98,16 @@ public class ListFragment extends BaseFragment {
         });
     }
 
-    private void hideSwipeIndicator(){
-        if (swipeContainer != null && swipeContainer.isShown()) {
-            swipeContainer.setRefreshing(false);
+    private void hideSwipeIndicator() {
+        if (binding.swipeContainer != null && binding.swipeContainer.isShown()) {
+            binding.swipeContainer.setRefreshing(false);
         }
     }
 
     private void setViewData(ArrayList<Rows> rowsList) {
         ListAdapter mAdapter = new ListAdapter(getBaseActivity(), rowsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getBaseActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mAdapter);
+        binding.recyclerView.setLayoutManager(mLayoutManager);
+        binding.recyclerView.setAdapter(mAdapter);
     }
 }

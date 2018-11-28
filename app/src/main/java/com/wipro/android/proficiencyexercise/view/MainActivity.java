@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBar;
 import com.wipro.android.proficiencyexercise.AppUtil.NavigationUtils;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.view.base.BaseActivity;
-import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 import com.wipro.android.proficiencyexercise.view.list.ListFragment;
 
 public class MainActivity extends BaseActivity {

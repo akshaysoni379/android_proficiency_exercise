@@ -11,14 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.wipro.android.proficiencyexercise.AppUtil.NavigationUtils;
+import com.wipro.android.proficiencyexercise.AppUtil.Utils;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 import com.wipro.android.proficiencyexercise.AppUtil.LogUtil;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.model.CanadaList;
 import com.wipro.android.proficiencyexercise.model.Rows;
-import com.wipro.android.proficiencyexercise.view.detail.DetailFragment;
 
 import java.util.ArrayList;
 
@@ -30,6 +30,7 @@ public class ListFragment extends BaseFragment {
     private final String TAG = ListFragment.class.getSimpleName();
     ListFragmentViewModel listFragmentViewModel;
     private RecyclerView recyclerView;
+    private TextView networkErrorTv;
     private SwipeRefreshLayout swipeContainer;
 
     public static ListFragment newInstance() {
@@ -50,6 +51,7 @@ public class ListFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.list_fragment, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        networkErrorTv = (TextView) view.findViewById(R.id.network_error_tv);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         listFragmentViewModel = ViewModelProviders.of(this).get(ListFragmentViewModel.class);
 
@@ -70,7 +72,17 @@ public class ListFragment extends BaseFragment {
     }
 
     private void apiCall() {
-        listFragmentViewModel.getDataFromApi();
+        if (Utils.checkNetwork(getBaseActivity())) {
+            listFragmentViewModel.apiCall();
+            recyclerView.setVisibility(View.VISIBLE);
+            networkErrorTv.setVisibility(View.GONE);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            networkErrorTv.setVisibility(View.VISIBLE);
+            if (swipeContainer != null && swipeContainer.isShown()) {
+                swipeContainer.setRefreshing(false);
+            }
+        }
     }
 
     private void setLiveDataObserval() {

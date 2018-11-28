@@ -24,7 +24,7 @@ public class ListFragmentViewModel extends ViewModel {
         loaderData.setValue(false);
     }
 
-    public void getDataFromApi() {
+    public void apiCall() {
         loaderData.setValue(true);
         Call<CanadaList> call = WiproApp.getServiceAPI().getData();
         call.enqueue(new Callback<CanadaList>() {

@@ -4,9 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-/**
- * Created by akshaysoni on 24/7/18.
- */
 public class NavigationUtils {
 
     public static void addFragment(FragmentManager fragmentManager, Fragment fragment, int container) {

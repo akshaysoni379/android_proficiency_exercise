@@ -11,11 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wipro.android.proficiencyexercise.AppUtil.NavigationUtils;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 import com.wipro.android.proficiencyexercise.AppUtil.LogUtil;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.model.CanadaList;
 import com.wipro.android.proficiencyexercise.model.Rows;
+import com.wipro.android.proficiencyexercise.view.detail.DetailFragment;
 
 import java.util.ArrayList;
 
@@ -78,11 +80,14 @@ public class ListFragment extends BaseFragment {
     }
 
     private void setViewData(ArrayList<Rows> rowsList) {
-
         ListAdapter mAdapter = new ListAdapter(getBaseActivity(), rowsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getBaseActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         //recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private void navigateToDetail(){
+
     }
 }

@@ -2,7 +2,9 @@ package com.wipro.android.proficiencyexercise.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Rows {
+import java.io.Serializable;
+
+public class Rows implements Serializable {
 
     @SerializedName("title")
     private String title;

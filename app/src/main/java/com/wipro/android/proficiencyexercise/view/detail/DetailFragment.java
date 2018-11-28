@@ -56,13 +56,19 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void setViewData() {
-        if (rows.getTitle() != null || !rows.getTitle().isEmpty()) {
-            getBaseActivity().getSupportActionBar().setTitle(rows.getTitle());
+        if (rows != null) {
+            if (rows.getTitle() != null && !rows.getTitle().isEmpty()) {
+                getBaseActivity().getSupportActionBar().setTitle(rows.getTitle());
+            }
+            if (rows.getDescription() != null && !rows.getDescription().isEmpty()) {
+                desc.setText(rows.getDescription());
+            }
+            if (rows.getImageHref() != null && !rows.getImageHref().isEmpty()) {
+                Glide.with(getBaseActivity())
+                        .load(rows.getImageHref())
+                        .apply(new RequestOptions().placeholder(R.drawable.loading))
+                        .into(image);
+            }
         }
-        desc.setText(rows.getDescription());
-        Glide.with(getBaseActivity())
-                .load(rows.getImageHref())
-                .apply(new RequestOptions().placeholder(R.drawable.loading))
-                .into(image);
     }
 }

@@ -82,11 +82,6 @@ public class ListFragment extends BaseFragment {
         ListAdapter mAdapter = new ListAdapter(getBaseActivity(), rowsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getBaseActivity());
         recyclerView.setLayoutManager(mLayoutManager);
-        //recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-    }
-
-    private void navigateToDetail() {
-
     }
 }

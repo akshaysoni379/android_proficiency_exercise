@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import com.wipro.android.proficiencyexercise.AppUtil.NavigationUtils;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.view.base.BaseActivity;
+import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 import com.wipro.android.proficiencyexercise.view.list.ListFragment;
 
 public class MainActivity extends BaseActivity {
@@ -23,6 +24,20 @@ public class MainActivity extends BaseActivity {
         NavigationUtils.addFragment(getSupportFragmentManager(),
                 new ListFragment(),
                 R.id.fragment_container);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            moveTaskToBack(true);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public BaseFragment getCurrentFragment() {
+        return (BaseFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
     }
 
 }

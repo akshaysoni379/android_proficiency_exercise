@@ -81,7 +81,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
                             return false;
                         }
                     })
-                    .apply(new RequestOptions().placeholder(R.drawable.loading))
+                    .apply(new RequestOptions()
+                            //.placeholder(R.drawable.loading)
+                            .override(250, 250)
+                            .fitCenter())
+
                     .into(holder.image);
         }
 

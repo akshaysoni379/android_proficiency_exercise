@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class ListFragment extends BaseFragment {
     private final String TAG = ListFragment.class.getSimpleName();
     ListFragmentViewModel listFragmentViewModel;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeContainer;
 
     public static ListFragment newInstance() {
         Bundle args = new Bundle();
@@ -48,9 +50,27 @@ public class ListFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.list_fragment, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         listFragmentViewModel = ViewModelProviders.of(this).get(ListFragmentViewModel.class);
-        listFragmentViewModel.getDataFromApi();
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                apiCall();
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        apiCall();
+
         return view;
+    }
+
+    private void apiCall() {
+        listFragmentViewModel.getDataFromApi();
     }
 
     private void setLiveDataObserval() {
@@ -73,6 +93,9 @@ public class ListFragment extends BaseFragment {
                     dialog.show();
                 } else {
                     dialog.hide();
+                    if (swipeContainer != null && swipeContainer.isShown()) {
+                        swipeContainer.setRefreshing(false);
+                    }
                 }
             }
         });

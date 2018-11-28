@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.wipro.android.proficiencyexercise.R;
+
 public abstract class BaseFragment extends Fragment {
 
     protected ProgressDialog dialog;
@@ -23,19 +25,8 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         TextView textView = new TextView(getActivity());
         dialog = new ProgressDialog(getActivity());
-        dialog.setMessage("please wait...");
+        dialog.setMessage(getString(R.string.please_wait));
         return textView;
-    }
-
-
-    public void hideKeyboard() {
-        View view = this.getActivity().getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        }
     }
 
     public BaseActivity getBaseActivity() {

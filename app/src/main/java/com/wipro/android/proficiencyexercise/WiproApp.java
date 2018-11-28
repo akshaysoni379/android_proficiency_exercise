@@ -19,10 +19,7 @@ public class WiproApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
+        Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(ApiConstant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))

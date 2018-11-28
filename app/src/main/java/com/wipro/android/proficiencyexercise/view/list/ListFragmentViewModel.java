@@ -18,7 +18,6 @@ public class ListFragmentViewModel extends ViewModel {
     public final MutableLiveData<Object> apiResponse = new MutableLiveData<>();
     public final MutableLiveData<Boolean> loaderData = new MutableLiveData<>();
 
-
     @Override
     protected void onCleared() {
         loaderData.setValue(false);

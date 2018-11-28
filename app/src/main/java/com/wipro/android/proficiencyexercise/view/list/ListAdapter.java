@@ -45,7 +45,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         }
     }
 
-
     public ListAdapter(Context mContext, List<Rows> rowsList) {
         this.rowsList = rowsList;
         this.mContext = mContext;
@@ -66,41 +65,40 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         if (rows.getImageHref() == null || rows.getImageHref().isEmpty()) {
             holder.image.setVisibility(View.GONE);
         } else {
-            Glide.with(mContext)
-                    .load(rows.getImageHref())
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            holder.image.setVisibility(View.GONE);
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            holder.image.setVisibility(View.VISIBLE);
-                            return false;
-                        }
-                    })
-                    .apply(new RequestOptions()
-                            //.placeholder(R.drawable.loading)
-                            .override(250, 250)
-                            .fitCenter())
-
-                    .into(holder.image);
+            loadImage(rows, holder.image);
         }
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.cardView.setOnClickListener(view ->
                 NavigationUtils.addFragment(((BaseActivity) mContext).getSupportFragmentManager(),
                         DetailFragment.newInstance(rows),
-                        R.id.fragment_container);
-            }
-        });
+                        R.id.fragment_container)
+        );
     }
 
     @Override
     public int getItemCount() {
         return rowsList.size();
+    }
+
+    private void loadImage(Rows rows, ImageView imageView) {
+        Glide.with(mContext)
+                .load(rows.getImageHref())
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        imageView.setVisibility(View.GONE);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        imageView.setVisibility(View.VISIBLE);
+                        return false;
+                    }
+                })
+                .apply(new RequestOptions()
+                        .override(250, 250) // here image width and size is hardcoded but it will be shown in center fit
+                        .fitCenter())
+                .into(imageView);
     }
 }

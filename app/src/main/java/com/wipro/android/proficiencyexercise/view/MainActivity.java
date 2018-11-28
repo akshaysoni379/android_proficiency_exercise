@@ -19,8 +19,13 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
 
+        /**
+         * Added fragment
+         */
         NavigationUtils.addFragment(getSupportFragmentManager(),
                 new ListFragment(),
                 R.id.fragment_container);
@@ -34,10 +39,4 @@ public class MainActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
-
-    public BaseFragment getCurrentFragment() {
-        return (BaseFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-
-    }
-
 }

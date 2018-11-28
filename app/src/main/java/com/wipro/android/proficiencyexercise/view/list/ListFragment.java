@@ -33,17 +33,10 @@ public class ListFragment extends BaseFragment {
     private TextView networkErrorTv;
     private SwipeRefreshLayout swipeContainer;
 
-    public static ListFragment newInstance() {
-        Bundle args = new Bundle();
-        ListFragment fragment = new ListFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setLiveDataObserval();
+        setLiveDataObserver();
     }
 
     @Override
@@ -55,12 +48,7 @@ public class ListFragment extends BaseFragment {
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         listFragmentViewModel = ViewModelProviders.of(this).get(ListFragmentViewModel.class);
 
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                apiCall();
-            }
-        });
+        swipeContainer.setOnRefreshListener(() -> apiCall());
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -79,14 +67,14 @@ public class ListFragment extends BaseFragment {
         } else {
             recyclerView.setVisibility(View.GONE);
             networkErrorTv.setVisibility(View.VISIBLE);
-            if (swipeContainer != null && swipeContainer.isShown()) {
-                swipeContainer.setRefreshing(false);
-            }
+            hideSwipeIndicator();
         }
     }
 
-    private void setLiveDataObserval() {
-
+    private void setLiveDataObserver() {
+        /**
+         * This will capture the api response
+         */
         listFragmentViewModel.apiResponse.observe(this, var -> {
             try {
                 CanadaList canadaList = (CanadaList) var;
@@ -99,18 +87,25 @@ public class ListFragment extends BaseFragment {
             }
         });
 
+        /**
+         * This will decide the dialog visibility
+         */
         listFragmentViewModel.loaderData.observe(this, isSHow -> {
             if (dialog != null) {
                 if (isSHow) {
                     dialog.show();
                 } else {
                     dialog.hide();
-                    if (swipeContainer != null && swipeContainer.isShown()) {
-                        swipeContainer.setRefreshing(false);
-                    }
+                    hideSwipeIndicator();
                 }
             }
         });
+    }
+
+    private void hideSwipeIndicator(){
+        if (swipeContainer != null && swipeContainer.isShown()) {
+            swipeContainer.setRefreshing(false);
+        }
     }
 
     private void setViewData(ArrayList<Rows> rowsList) {

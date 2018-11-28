@@ -21,8 +21,4 @@ public class NavigationUtils {
                 .addToBackStack(fragment.getClass().getName())
                 .commit();
     }
-
-    public static void clearAllFragment(FragmentManager fragmentManager) {
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
 }

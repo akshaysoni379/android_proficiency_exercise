@@ -1,4 +1,4 @@
-package com.wipro.android.proficiencyexercise.AppUtil;
+package com.wipro.android.proficiencyexercise.view.base;
 
 import android.content.Context;
 import android.os.Bundle;

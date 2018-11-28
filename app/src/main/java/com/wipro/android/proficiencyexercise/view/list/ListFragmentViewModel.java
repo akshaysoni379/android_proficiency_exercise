@@ -1,4 +1,4 @@
-package com.wipro.android.proficiencyexercise.view;
+package com.wipro.android.proficiencyexercise.view.list;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;

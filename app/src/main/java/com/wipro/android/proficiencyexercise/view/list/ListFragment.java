@@ -1,4 +1,4 @@
-package com.wipro.android.proficiencyexercise.view;
+package com.wipro.android.proficiencyexercise.view.list;
 
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wipro.android.proficiencyexercise.AppUtil.BaseFragment;
+import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 import com.wipro.android.proficiencyexercise.AppUtil.LogUtil;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.model.CanadaList;

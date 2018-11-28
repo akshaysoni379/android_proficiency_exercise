@@ -3,9 +3,10 @@ package com.wipro.android.proficiencyexercise.view;
 import android.os.Bundle;
 import android.widget.Toolbar;
 
-import com.wipro.android.proficiencyexercise.AppUtil.BaseActivity;
+import com.wipro.android.proficiencyexercise.view.base.BaseActivity;
 import com.wipro.android.proficiencyexercise.AppUtil.NavigationUtils;
 import com.wipro.android.proficiencyexercise.R;
+import com.wipro.android.proficiencyexercise.view.list.ListFragment;
 
 public class MainActivity extends BaseActivity {
 

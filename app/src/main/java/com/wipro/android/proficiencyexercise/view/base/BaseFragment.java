@@ -24,6 +24,7 @@ public abstract class BaseFragment extends Fragment {
         TextView textView = new TextView(getActivity());
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage(getString(R.string.please_wait));
+        dialog.setCancelable(false);
         return textView;
     }
 

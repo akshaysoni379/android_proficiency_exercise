@@ -1,16 +1,17 @@
 package com.wipro.android.proficiencyexercise.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 
-import com.wipro.android.proficiencyexercise.AppUtil.NavigationUtils;
+import com.wipro.android.proficiencyexercise.AppUtil.Utils;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.view.base.BaseActivity;
 import com.wipro.android.proficiencyexercise.view.list.ListFragment;
 
 public class MainActivity extends BaseActivity {
-
-    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +23,7 @@ public class MainActivity extends BaseActivity {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
 
-        /**
-         * Added fragment
-         */
-        NavigationUtils.addFragment(getSupportFragmentManager(),
+        Utils.addFragment(getSupportFragmentManager(),
                 new ListFragment(),
                 R.id.fragment_container);
     }
@@ -37,5 +35,15 @@ public class MainActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert imm != null;
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }

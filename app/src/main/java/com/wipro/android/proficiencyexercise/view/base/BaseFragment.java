@@ -10,14 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wipro.android.proficiencyexercise.R;
+import com.wipro.android.proficiencyexercise.view.MainActivity;
 
 public abstract class BaseFragment extends Fragment {
 
     protected ProgressDialog dialog;
-
-    public BaseFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +25,7 @@ public abstract class BaseFragment extends Fragment {
         return textView;
     }
 
-    public BaseActivity getBaseActivity() {
-        return (BaseActivity) getActivity();
+    protected MainActivity getBaseActivity() {
+        return (MainActivity) getActivity();
     }
 }

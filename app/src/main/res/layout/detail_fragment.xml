@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/desc"
+        android:contentDescription="@string/content_desc"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/padding_5dp"
         android:scaleType="centerInside" />

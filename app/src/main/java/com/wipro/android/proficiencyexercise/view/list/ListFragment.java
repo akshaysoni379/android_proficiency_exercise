@@ -17,7 +17,7 @@ import com.wipro.android.proficiencyexercise.AppUtil.Utils;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.databinding.ListFragmentBinding;
 import com.wipro.android.proficiencyexercise.model.CanadaList;
-import com.wipro.android.proficiencyexercise.model.Rows;
+import com.wipro.android.proficiencyexercise.model.Row;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class ListFragment extends BaseFragment {
         listFragmentViewModel = ViewModelProviders.of(this).get(ListFragmentViewModel.class);
         binding.setLifecycleOwner(this);
 
-        binding.swipeContainer.setOnRefreshListener(() -> apiCall());
+        binding.swipeContainer.setOnRefreshListener(this::apiCall);
         binding.swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -68,9 +68,6 @@ public class ListFragment extends BaseFragment {
     }
 
     private void setLiveDataObserver() {
-        /**
-         * This will capture the api response
-         */
         listFragmentViewModel.apiResponse.observe(this, var -> {
             try {
                 CanadaList canadaList = (CanadaList) var;
@@ -83,16 +80,15 @@ public class ListFragment extends BaseFragment {
             }
         });
 
-        /**
-         * This will decide the dialog visibility
-         */
         listFragmentViewModel.loaderData.observe(this, isSHow -> {
             if (dialog != null) {
-                if (isSHow) {
-                    dialog.show();
-                } else {
-                    dialog.hide();
-                    hideSwipeIndicator();
+                if (isSHow != null) {
+                    if (isSHow) {
+                        dialog.show();
+                    } else {
+                        dialog.hide();
+                        hideSwipeIndicator();
+                    }
                 }
             }
         });
@@ -104,7 +100,7 @@ public class ListFragment extends BaseFragment {
         }
     }
 
-    private void setViewData(ArrayList<Rows> rowsList) {
+    private void setViewData(ArrayList<Row> rowsList) {
         ListAdapter mAdapter = new ListAdapter(getBaseActivity(), rowsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getBaseActivity());
         binding.recyclerView.setLayoutManager(mLayoutManager);

@@ -2,6 +2,7 @@ package com.wipro.android.proficiencyexercise.view.list;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +18,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.wipro.android.proficiencyexercise.AppUtil.NavigationUtils;
+import com.wipro.android.proficiencyexercise.AppUtil.Utils;
 import com.wipro.android.proficiencyexercise.R;
-import com.wipro.android.proficiencyexercise.model.Rows;
+import com.wipro.android.proficiencyexercise.model.Row;
 import com.wipro.android.proficiencyexercise.view.base.BaseActivity;
 import com.wipro.android.proficiencyexercise.view.detail.DetailFragment;
 
@@ -27,37 +28,38 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
-    private List<Rows> rowsList;
-    private Context mContext;
+    private final List<Row> rowsList;
+    private final Context mContext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, desc;
-        public ImageView image;
-        public CardView cardView;
+        private final TextView title, desc;
+        private final ImageView image;
+        private final CardView cardView;
 
-        public MyViewHolder(View view) {
+        private MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            desc = (TextView) view.findViewById(R.id.desc);
-            image = (ImageView) view.findViewById(R.id.image);
-            cardView = (CardView) view.findViewById(R.id.cardView);
+            title = view.findViewById(R.id.title);
+            desc = view.findViewById(R.id.desc);
+            image = view.findViewById(R.id.image);
+            cardView = view.findViewById(R.id.cardView);
         }
     }
 
-    public ListAdapter(Context mContext, List<Rows> rowsList) {
+    public ListAdapter(Context mContext, List<Row> rowsList) {
         this.rowsList = rowsList;
         this.mContext = mContext;
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        Rows rows = rowsList.get(position);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Row rows = rowsList.get(position);
         holder.title.setText(rows.getTitle());
         holder.desc.setText(rows.getDescription());
 
@@ -68,7 +70,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         }
 
         holder.cardView.setOnClickListener(view ->
-                NavigationUtils.addFragment(((BaseActivity) mContext).getSupportFragmentManager(),
+                Utils.addFragment(((BaseActivity) mContext).getSupportFragmentManager(),
                         DetailFragment.newInstance(rows),
                         R.id.fragment_container)
         );
@@ -79,7 +81,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         return rowsList.size();
     }
 
-    private void loadImage(Rows rows, ImageView imageView) {
+    private void loadImage(Row rows, ImageView imageView) {
         Glide.with(mContext)
                 .load(rows.getImageHref())
                 .listener(new RequestListener<Drawable>() {

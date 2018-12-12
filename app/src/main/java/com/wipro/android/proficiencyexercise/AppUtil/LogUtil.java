@@ -16,20 +16,8 @@ public class LogUtil {
         log(LOG_LEVEL_ERROR, tag, msg);
     }
 
-    public static void w(String tag, String msg) {
-        log(LOG_LEVEL_WARN, tag, msg);
-    }
-
     public static void d(String tag, String msg) {
         log(LOG_LEVEL_DEBUG, tag, msg);
-    }
-
-    public static void i(String tag, String msg) {
-        log(LOG_LEVEL_INFO, tag, msg);
-    }
-
-    public static void v(String tag, String msg) {
-        log(LOG_LEVEL_VERBOSE, tag, msg);
     }
 
     private static void log(int level, String tag, String msg) {

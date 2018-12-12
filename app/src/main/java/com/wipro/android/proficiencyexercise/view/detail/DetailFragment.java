@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wipro.android.proficiencyexercise.R;
-import com.wipro.android.proficiencyexercise.model.Rows;
+import com.wipro.android.proficiencyexercise.model.Row;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
 /**
@@ -20,12 +20,11 @@ import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
  */
 public class DetailFragment extends BaseFragment {
 
-    private final String TAG = DetailFragment.class.getSimpleName();
     private TextView desc;
     private ImageView image;
-    private Rows rows;
+    private Row rows;
 
-    public static DetailFragment newInstance(Rows rows) {
+    public static DetailFragment newInstance(Row rows) {
         Bundle args = new Bundle();
         args.putSerializable("rows", rows);
         DetailFragment fragment = new DetailFragment();
@@ -36,37 +35,29 @@ public class DetailFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rows = (Rows) getArguments().getSerializable("rows");
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        rows = (Row) (getArguments() != null ? getArguments().getSerializable("rows") : null);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.detail_fragment, container, false);
-        desc = (TextView) view.findViewById(R.id.desc);
-        image = (ImageView) view.findViewById(R.id.image);
+        desc =  view.findViewById(R.id.desc);
+        image =  view.findViewById(R.id.image);
         setViewData();
         return view;
     }
 
     private void setViewData() {
         if (rows != null) {
-            if (rows.getTitle() != null && !rows.getTitle().isEmpty()) {
+            if (rows.getTitle() != null && !rows.getTitle().isEmpty())
                 getBaseActivity().getSupportActionBar().setTitle(rows.getTitle());
-            }
-            if (rows.getDescription() != null && !rows.getDescription().isEmpty()) {
+            if (rows.getDescription() != null && !rows.getDescription().isEmpty())
                 desc.setText(rows.getDescription());
-            }
-            if (rows.getImageHref() != null && !rows.getImageHref().isEmpty()) {
+            if (rows.getImageHref() != null && !rows.getImageHref().isEmpty())
                 Glide.with(getBaseActivity())
                         .load(rows.getImageHref())
                         .into(image);
-            }
         }
     }
 }

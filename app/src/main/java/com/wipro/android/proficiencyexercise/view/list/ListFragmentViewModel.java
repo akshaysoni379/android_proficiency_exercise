@@ -30,7 +30,7 @@ public class ListFragmentViewModel extends ViewModel {
             @Override
             public void onResponse(Call<CanadaList> call, Response<CanadaList> response) {
                 loaderData.setValue(false);
-                CanadaList canadaList=response.body();
+                CanadaList canadaList = response.body();
                 LogUtil.d(TAG, new Gson().toJson(canadaList));
                 apiResponse.setValue(canadaList);
             }

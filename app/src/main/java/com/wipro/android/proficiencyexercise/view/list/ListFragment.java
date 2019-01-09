@@ -15,12 +15,16 @@ import android.view.ViewGroup;
 import com.wipro.android.proficiencyexercise.AppUtil.LogUtil;
 import com.wipro.android.proficiencyexercise.AppUtil.Utils;
 import com.wipro.android.proficiencyexercise.R;
+import com.wipro.android.proficiencyexercise.WiproApp;
 import com.wipro.android.proficiencyexercise.databinding.ListFragmentBinding;
 import com.wipro.android.proficiencyexercise.model.CanadaList;
 import com.wipro.android.proficiencyexercise.model.Row;
+import com.wipro.android.proficiencyexercise.view.GlobalViewModelFactory;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +34,9 @@ public class ListFragment extends BaseFragment {
     private final String TAG = ListFragment.class.getSimpleName();
     private ListFragmentViewModel listFragmentViewModel;
     private ListFragmentBinding binding;
+
+    @Inject
+    GlobalViewModelFactory<ListFragmentViewModel> modelFactory;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -41,7 +48,8 @@ public class ListFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         binding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false);
-        listFragmentViewModel = ViewModelProviders.of(this).get(ListFragmentViewModel.class);
+        ((WiproApp)getActivity().getApplicationContext()).getAppComponent().inject(this);
+        listFragmentViewModel = ViewModelProviders.of(this, modelFactory).get(ListFragmentViewModel.class);
         binding.setLifecycleOwner(this);
 
         binding.swipeContainer.setOnRefreshListener(this::apiCall);

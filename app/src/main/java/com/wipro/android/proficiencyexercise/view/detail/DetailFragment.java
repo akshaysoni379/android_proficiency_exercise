@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wipro.android.proficiencyexercise.R;
-import com.wipro.android.proficiencyexercise.model.Row;
+import com.wipro.android.proficiencyexercise.data.remote.response.Row;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
 /**

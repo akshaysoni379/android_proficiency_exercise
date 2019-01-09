@@ -12,14 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wipro.android.proficiencyexercise.AppUtil.LogUtil;
-import com.wipro.android.proficiencyexercise.AppUtil.Utils;
+import com.wipro.android.proficiencyexercise.utils.LogUtil;
+import com.wipro.android.proficiencyexercise.utils.Utils;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.WiproApp;
 import com.wipro.android.proficiencyexercise.databinding.ListFragmentBinding;
-import com.wipro.android.proficiencyexercise.model.CanadaList;
-import com.wipro.android.proficiencyexercise.model.Row;
-import com.wipro.android.proficiencyexercise.view.GlobalViewModelFactory;
+import com.wipro.android.proficiencyexercise.data.remote.response.CanadaList;
+import com.wipro.android.proficiencyexercise.data.remote.response.Row;
+import com.wipro.android.proficiencyexercise.utils.GlobalViewModelFactory;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class ListFragment extends BaseFragment {
     }
 
     private void apiCall() {
-        if (Utils.checkNetwork(getBaseActivity())) {
+        if (Utils.INSTANCE.checkNetwork(getBaseActivity())) {
             listFragmentViewModel.apiCall();
             binding.recyclerView.setVisibility(View.VISIBLE);
             binding.networkErrorTv.setVisibility(View.GONE);
@@ -80,7 +80,7 @@ public class ListFragment extends BaseFragment {
             try {
                 CanadaList canadaList = (CanadaList) var;
                 if (canadaList != null && canadaList.getRows() != null && canadaList.getRows().size() > 0) {
-                    LogUtil.e(TAG, "size: " + canadaList.getRows().size());
+                    LogUtil.INSTANCE.e(TAG, "size: " + canadaList.getRows().size());
                     setViewData(canadaList.getRows());
                 }
             } catch (Exception e) {
@@ -89,12 +89,12 @@ public class ListFragment extends BaseFragment {
         });
 
         listFragmentViewModel.loaderData.observe(this, isSHow -> {
-            if (dialog != null) {
+            if (getDialog() != null) {
                 if (isSHow != null) {
                     if (isSHow) {
-                        dialog.show();
+                        getDialog().show();
                     } else {
-                        dialog.hide();
+                        getDialog().hide();
                         hideSwipeIndicator();
                     }
                 }

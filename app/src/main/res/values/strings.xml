@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">AndroidProficiencyExercise</string>
     <string name="network_error">Please check your network connection</string>
-    <string name="please_wait">Please wait</string>
     <string name="content_desc">Image content description</string>
 </resources>

@@ -15,9 +15,9 @@ import io.reactivex.observers.DisposableObserver;
 public class ListFragmentViewModel extends ViewModel {
 
     private final String TAG = ListFragmentViewModel.class.getSimpleName();
-    public final MutableLiveData<Object> apiResponse = new MutableLiveData<>();
-    public final MutableLiveData<Boolean> loaderData = new MutableLiveData<>();
-    private CanadaListUseCase useCase;
+    final MutableLiveData<Object> apiResponse = new MutableLiveData<>();
+    final MutableLiveData<Boolean> loaderData = new MutableLiveData<>();
+    final private CanadaListUseCase useCase;
 
     @Inject
     public ListFragmentViewModel(CanadaListUseCase canadaListUseCase) {
@@ -29,7 +29,7 @@ public class ListFragmentViewModel extends ViewModel {
         loaderData.setValue(false);
     }
 
-    public void apiCall() {
+    void apiCall() {
         loaderData.setValue(true);
         useCase.execute(new DisposableObserver<CanadaList>() {
             @Override

@@ -7,11 +7,11 @@ import java.io.Serializable
 class Row : Serializable {
 
     @SerializedName("title")
-    var title = ""
+    var title: String? = null
 
     @SerializedName("description")
-    var description = ""
+    var description: String? = null
 
     @SerializedName("imageHref")
-    var imageHref = ""
+    var imageHref: String? = null
 }

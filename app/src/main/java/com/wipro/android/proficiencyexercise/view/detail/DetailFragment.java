@@ -1,9 +1,8 @@
 package com.wipro.android.proficiencyexercise.view.detail;
 
-
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,6 @@ import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.data.remote.response.Row;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DetailFragment extends BaseFragment {
 
     private TextView desc;
@@ -39,11 +35,11 @@ public class DetailFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.detail_fragment, container, false);
-        desc =  view.findViewById(R.id.desc);
-        image =  view.findViewById(R.id.image);
+        desc = view.findViewById(R.id.desc);
+        image = view.findViewById(R.id.image);
         setViewData();
         return view;
     }
@@ -51,7 +47,9 @@ public class DetailFragment extends BaseFragment {
     private void setViewData() {
         if (rows != null) {
             if (rows.getTitle() != null && !rows.getTitle().isEmpty())
-                getBaseActivity().getSupportActionBar().setTitle(rows.getTitle());
+                if (getBaseActivity().getSupportActionBar() != null) {
+                    getBaseActivity().getSupportActionBar().setTitle(rows.getTitle());
+                }
             if (rows.getDescription() != null && !rows.getDescription().isEmpty())
                 desc.setText(rows.getDescription());
             if (rows.getImageHref() != null && !rows.getImageHref().isEmpty())

@@ -86,14 +86,9 @@ public class ListFragment extends BaseFragment {
         });
 
         listFragmentViewModel.loaderData.observe(this, isSHow -> {
-            if (getDialog() != null) {
-                if (isSHow != null) {
-                    if (isSHow) {
-                        getDialog().show();
-                    } else {
-                        getDialog().hide();
-                        hideSwipeIndicator();
-                    }
+            if (isSHow != null) {
+                if (!isSHow) {
+                    hideSwipeIndicator();
                 }
             }
         });

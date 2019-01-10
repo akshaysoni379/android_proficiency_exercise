@@ -4,9 +4,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
-import com.wipro.android.proficiencyexercise.utils.LogUtil;
-import com.wipro.android.proficiencyexercise.domain.intractor.CanadaListUseCase;
 import com.wipro.android.proficiencyexercise.data.remote.response.CanadaList;
+import com.wipro.android.proficiencyexercise.domain.intractor.CanadaListUseCase;
+import com.wipro.android.proficiencyexercise.utils.LogUtil;
 
 import javax.inject.Inject;
 
@@ -31,24 +31,6 @@ public class ListFragmentViewModel extends ViewModel {
 
     public void apiCall() {
         loaderData.setValue(true);
-
-        /*Call<CanadaList> call = WiproApp.getServiceAPI().getData();
-        call.enqueue(new Callback<CanadaList>() {
-            @Override
-            public void onResponse(Call<CanadaList> call, Response<CanadaList> response) {
-                loaderData.setValue(false);
-                CanadaList canadaList = response.body();
-                LogUtil.d(TAG, new Gson().toJson(canadaList));
-                apiResponse.setValue(canadaList);
-            }
-
-            @Override
-            public void onFailure(Call<CanadaList> call, Throwable t) {
-                loaderData.setValue(false);
-            }
-        });*/
-
-
         useCase.execute(new DisposableObserver<CanadaList>() {
             @Override
             public void onNext(CanadaList canadaList) {

@@ -1,34 +1,31 @@
 package com.wipro.android.proficiencyexercise.view.list;
 
-
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wipro.android.proficiencyexercise.utils.LogUtil;
-import com.wipro.android.proficiencyexercise.utils.Utils;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.WiproApp;
-import com.wipro.android.proficiencyexercise.databinding.ListFragmentBinding;
 import com.wipro.android.proficiencyexercise.data.remote.response.CanadaList;
 import com.wipro.android.proficiencyexercise.data.remote.response.Row;
+import com.wipro.android.proficiencyexercise.databinding.ListFragmentBinding;
 import com.wipro.android.proficiencyexercise.utils.GlobalViewModelFactory;
+import com.wipro.android.proficiencyexercise.utils.LogUtil;
+import com.wipro.android.proficiencyexercise.utils.Utils;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ListFragment extends BaseFragment {
 
     private final String TAG = ListFragment.class.getSimpleName();
@@ -45,10 +42,10 @@ public class ListFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         binding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false);
-        ((WiproApp)getActivity().getApplicationContext()).getAppComponent().inject(this);
+        ((WiproApp) Objects.requireNonNull(getActivity()).getApplicationContext()).getAppComponent().inject(this);
         listFragmentViewModel = ViewModelProviders.of(this, modelFactory).get(ListFragmentViewModel.class);
         binding.setLifecycleOwner(this);
 

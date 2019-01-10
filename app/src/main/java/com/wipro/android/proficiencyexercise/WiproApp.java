@@ -1,7 +1,7 @@
 package com.wipro.android.proficiencyexercise;
 
 import android.app.Application;
-import android.content.Context;
+
 import com.wipro.android.proficiencyexercise.di.components.AppComponent;
 import com.wipro.android.proficiencyexercise.di.components.DaggerAppComponent;
 import com.wipro.android.proficiencyexercise.di.modules.AppModule;
@@ -9,11 +9,6 @@ import com.wipro.android.proficiencyexercise.di.modules.AppModule;
 public class WiproApp extends Application {
 
     private AppComponent appComponent;
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-    }
 
     public AppComponent getAppComponent() {
         return appComponent;

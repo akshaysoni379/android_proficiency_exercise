@@ -18,9 +18,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.wipro.android.proficiencyexercise.utils.Utils;
 import com.wipro.android.proficiencyexercise.R;
 import com.wipro.android.proficiencyexercise.data.remote.response.Row;
+import com.wipro.android.proficiencyexercise.utils.Utils;
 import com.wipro.android.proficiencyexercise.view.base.BaseActivity;
 import com.wipro.android.proficiencyexercise.view.detail.DetailFragment;
 

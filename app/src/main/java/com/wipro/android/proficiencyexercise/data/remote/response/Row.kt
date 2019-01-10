@@ -7,11 +7,11 @@ import java.io.Serializable
 class Row : Serializable {
 
     @SerializedName("title")
-    val title = ""
+    var title = ""
 
     @SerializedName("description")
-    val description = ""
+    var description = ""
 
     @SerializedName("imageHref")
-    val imageHref = ""
+    var imageHref = ""
 }

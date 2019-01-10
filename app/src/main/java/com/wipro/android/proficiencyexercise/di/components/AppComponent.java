@@ -1,6 +1,5 @@
 package com.wipro.android.proficiencyexercise.di.components;
 
-
 import com.wipro.android.proficiencyexercise.WiproApp;
 import com.wipro.android.proficiencyexercise.di.modules.AppModule;
 import com.wipro.android.proficiencyexercise.view.list.ListFragment;

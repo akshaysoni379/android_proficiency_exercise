@@ -45,7 +45,7 @@ public class ListFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         binding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false);
-        ((WiproApp) Objects.requireNonNull(getActivity()).getApplicationContext()).getAppComponent().inject(this);
+        ((WiproApp) (getActivity()).getApplicationContext()).getAppComponent().inject(this);
         listFragmentViewModel = ViewModelProviders.of(this, modelFactory).get(ListFragmentViewModel.class);
         binding.setLifecycleOwner(this);
 
@@ -73,7 +73,7 @@ public class ListFragment extends BaseFragment {
     }
 
     private void setLiveDataObserver() {
-        listFragmentViewModel.apiResponse.observe(this, var -> {
+        listFragmentViewModel.getApiResponse().observe(this, var -> {
             try {
                 CanadaList canadaList = (CanadaList) var;
                 if (canadaList != null && canadaList.getRows() != null && canadaList.getRows().size() > 0) {
@@ -85,7 +85,7 @@ public class ListFragment extends BaseFragment {
             }
         });
 
-        listFragmentViewModel.loaderData.observe(this, isSHow -> {
+        listFragmentViewModel.getLoaderData().observe(this, isSHow -> {
             if (isSHow != null) {
                 if (!isSHow) {
                     hideSwipeIndicator();

@@ -8,7 +8,7 @@ import com.wipro.android.proficiencyexercise.di.modules.AppModule;
 
 public class WiproApp extends Application {
 
-    private AppComponent appComponent;
+    AppComponent appComponent;
 
     public AppComponent getAppComponent() {
         return appComponent;
@@ -21,7 +21,7 @@ public class WiproApp extends Application {
         appComponent.inject(this);
     }
 
-    private void createInjector() {
+    void createInjector() {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule())
                 .build();

@@ -6,7 +6,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class CanadaListUseCase @Inject
-constructor(private val repository: Repository) : UseCase<CanadaList>() {
+constructor(val repository: Repository) : UseCase<CanadaList>() {
 
     override fun buildUseCaseObservable(): Observable<CanadaList> {
         return repository.canadaList

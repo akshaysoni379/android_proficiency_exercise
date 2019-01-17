@@ -22,7 +22,6 @@ import com.wipro.android.proficiencyexercise.utils.Utils;
 import com.wipro.android.proficiencyexercise.view.base.BaseFragment;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import javax.inject.Inject;
 

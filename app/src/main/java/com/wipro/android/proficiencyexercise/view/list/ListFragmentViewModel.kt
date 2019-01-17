@@ -2,21 +2,18 @@ package com.wipro.android.proficiencyexercise.view.list
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-
 import com.google.gson.Gson
 import com.wipro.android.proficiencyexercise.data.remote.response.CanadaList
 import com.wipro.android.proficiencyexercise.domain.intractor.CanadaListUseCase
 import com.wipro.android.proficiencyexercise.utils.LogUtil
-
-import javax.inject.Inject
-
 import io.reactivex.observers.DisposableObserver
+import javax.inject.Inject
 
 class ListFragmentViewModel @Inject
 constructor(private val useCase: CanadaListUseCase) : ViewModel() {
 
     private val TAG = ListFragmentViewModel::class.java.simpleName
-    val apiResponse = MutableLiveData<Any>()
+    val apiResponse = MutableLiveData<CanadaList>()
     val loaderData = MutableLiveData<Boolean>()
 
     override fun onCleared() {
@@ -34,7 +31,7 @@ constructor(private val useCase: CanadaListUseCase) : ViewModel() {
 
             override fun onError(e: Throwable) {
                 LogUtil.d(TAG, e.message!!)
-                apiResponse.setValue(e)
+                //apiResponse.setValue(e)
                 loaderData.setValue(false)
             }
 

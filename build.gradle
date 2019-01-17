@@ -16,6 +16,9 @@ buildscript {
     }
 }
 
+ext {
+    dagger = "2.16"
+}
 allprojects {
     repositories {
         google()

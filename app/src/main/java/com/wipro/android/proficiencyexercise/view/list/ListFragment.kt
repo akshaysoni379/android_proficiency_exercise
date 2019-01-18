@@ -46,6 +46,7 @@ class ListFragment : BaseFragment() {
                 android.R.color.holo_red_light)
         setLiveDataObserver()
         apiCall()
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

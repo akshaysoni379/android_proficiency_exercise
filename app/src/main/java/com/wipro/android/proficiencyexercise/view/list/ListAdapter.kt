@@ -21,14 +21,15 @@ import com.wipro.android.proficiencyexercise.data.remote.response.Row
 import com.wipro.android.proficiencyexercise.utils.Utils
 import com.wipro.android.proficiencyexercise.view.base.BaseActivity
 import com.wipro.android.proficiencyexercise.view.detail.DetailFragment
+import kotlin.properties.Delegates
 
 class ListAdapter(private val mContext: Context, private val rowsList: List<Row>) : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView
-        val desc: TextView
-        val image: ImageView
-        val cardView: CardView
+    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var title: TextView by Delegates.notNull()
+        var desc: TextView by Delegates.notNull()
+        var image: ImageView by Delegates.notNull()
+        var cardView: CardView by Delegates.notNull()
 
         init {
             title = view.findViewById(R.id.title)
@@ -54,7 +55,7 @@ class ListAdapter(private val mContext: Context, private val rowsList: List<Row>
             loadImage(rows, holder.image)
         }
 
-        holder.cardView.setOnClickListener { view ->
+        holder.cardView.setOnClickListener {
             Utils.addFragment((mContext as BaseActivity).supportFragmentManager,
                     DetailFragment.newInstance(rows),
                     R.id.fragment_container)

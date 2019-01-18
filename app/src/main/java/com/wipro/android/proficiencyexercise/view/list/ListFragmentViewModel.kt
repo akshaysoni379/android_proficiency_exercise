@@ -12,7 +12,7 @@ import javax.inject.Inject
 class ListFragmentViewModel @Inject
 constructor(private val useCase: CanadaListUseCase) : ViewModel() {
 
-    private val TAG = ListFragmentViewModel::class.java.simpleName
+    val tag = "ListFragmentViewModel"
     val apiResponse = MutableLiveData<CanadaList>()
     val loaderData = MutableLiveData<Boolean>()
 
@@ -21,22 +21,21 @@ constructor(private val useCase: CanadaListUseCase) : ViewModel() {
     }
 
     fun apiCall() {
-        loaderData.setValue(true)
+        loaderData.value = true
         useCase.execute(object : DisposableObserver<CanadaList>() {
             override fun onNext(canadaList: CanadaList) {
-                loaderData.setValue(false)
-                LogUtil.d(TAG, Gson().toJson(canadaList))
-                apiResponse.setValue(canadaList)
+                loaderData.value = false
+                LogUtil.d(tag, Gson().toJson(canadaList))
+                apiResponse.value = canadaList
             }
 
             override fun onError(e: Throwable) {
-                LogUtil.d(TAG, e.message!!)
-                //apiResponse.setValue(e)
-                loaderData.setValue(false)
+                LogUtil.d(tag, e.message!!)
+                loaderData.value = false
             }
 
             override fun onComplete() {
-                LogUtil.d(TAG, " Response Complete")
+                LogUtil.d(tag, " Response Complete")
             }
         })
     }

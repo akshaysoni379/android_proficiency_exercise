@@ -6,7 +6,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class RepositoryImpl @Inject
-constructor(val apiInterface: ServiceAPI) : Repository {
+constructor(private val apiInterface: ServiceAPI) : Repository {
 
     override val canadaList: Observable<CanadaList>
         get() = apiInterface.canadaList

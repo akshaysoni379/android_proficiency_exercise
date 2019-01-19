@@ -5,14 +5,12 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.wipro.android.proficiencyexercise.R
 import com.wipro.android.proficiencyexercise.WiproApp
-import com.wipro.android.proficiencyexercise.data.remote.response.CanadaList
 import com.wipro.android.proficiencyexercise.data.remote.response.Row
 import com.wipro.android.proficiencyexercise.databinding.ListFragmentBinding
 import com.wipro.android.proficiencyexercise.utils.GlobalViewModelFactory
@@ -26,7 +24,7 @@ import javax.inject.Inject
 
 class ListFragment : BaseFragment() {
 
-    private val TAG = ListFragment::class.java.simpleName
+    private val logTag = "ListFragment"
     private var listFragmentViewModel: ListFragmentViewModel? = null
     private var binding: ListFragmentBinding? = null
 
@@ -35,11 +33,11 @@ class ListFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity!!.getApplicationContext() as WiproApp).appComponent.inject(this)
+        (activity!!.applicationContext as WiproApp).appComponent.inject(this)
         listFragmentViewModel = ViewModelProviders.of(this, modelFactory).get(ListFragmentViewModel::class.java)
         binding!!.setLifecycleOwner(this)
 
-        binding!!.swipeContainer.setOnRefreshListener({ this.apiCall() })
+        binding!!.swipeContainer.setOnRefreshListener { this.apiCall() }
         binding!!.swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -68,10 +66,10 @@ class ListFragment : BaseFragment() {
 
     private fun setLiveDataObserver() {
         listFragmentViewModel!!.apiResponse.observe(this, Observer {
-            it?.let {
+            it?.let { it ->
                 try {
-                    if (it != null && it.rows != null && it.rows.size > 0) {
-                        LogUtil.e(TAG, "size: " + it.rows.size)
+                    if (it.rows != null && it.rows.size > 0) {
+                        LogUtil.e(logTag, "size: " + it.rows.size)
                         setViewData(it.rows)
                     }
                 } catch (e: Exception) {
@@ -80,8 +78,8 @@ class ListFragment : BaseFragment() {
             }
         })
 
-        listFragmentViewModel!!.loaderData.observe(this, Observer {
-            it?.let {
+        listFragmentViewModel!!.loaderData.observe(this, Observer { it ->
+            it?.let { it ->
                 if (!it) {
                     hideSwipeIndicator()
                 }
